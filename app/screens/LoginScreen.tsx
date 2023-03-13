@@ -6,32 +6,42 @@ import {
   Image,
   StyleSheet,
   TextInput,
+  Button,
+  TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import AppButton from '../components/AppButton';
+import AppTextInput from '../components/AppTextInput';
+import colors from '../config/colors';
 
 export default function LoginScreen() {
   return (
-    <View style={styles.container}>
-      <View style={styles.bodyContainer}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <View style={styles.logoContainer}>
         <View style={styles.logo}>
           <Image
             source={require('../../assets/login.png')}
             style={styles.loginImage}
           />
         </View>
-        <View>
-          <Text style={styles.loginText}>Login</Text>
-        </View>
-        <View>
-          <TextInput style={styles.emailTextinput} placeholder="Enter email" />
-        </View>
-        <View>
-            <AppButton title="Login"/>
-        </View>
       </View>
-      
-    </View>
-    
+      <View style={styles.loginTextContainer}>
+        <Text style={styles.loginText}>Login</Text>
+      </View>
+      <View style={styles.loginFormContainer}>
+        <AppTextInput placeholder="Email" />
+        <AppTextInput placeholder="Password" />
+      </View>
+      <View style={styles.loginButtonContainer}>
+        <AppButton title="Login" />
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
@@ -39,10 +49,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  bodyContainer: {
-    top: 30,
-  },
+  logoContainer: {},
   logo: {
+    top: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -50,17 +59,24 @@ const styles = StyleSheet.create({
     width: 240,
     height: 150,
   },
+  loginTextContainer: {
+    top: 60,
+  },
   loginText: {
-    top :20,
     fontSize: 34,
     fontWeight: '900',
-    color: "#000",
-    margin: 20
+    color: '#000',
+    marginHorizontal: 20,
   },
-  emailTextinput: {
-    top :20,
-    backgroundColor : "#E8E8E8",
-    height: 60,
-    margin: 20
+  loginFormContainer: {
+    top: 90,
+  },
+  loginButtonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 60,
+    width: '100%',
+    paddingHorizontal: 20,
   },
 });
